@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+<h1>คู่มือใช้งาน {{ mach.name }}</h1>
+<div class="row">
+    {% for obj in imgs %}
+        <img src=" {{ obj.image.url }}"  height="800px"/>
+
+    {% endfor %}
+    <div class="col-md-4">
+        <h5>คำอธิบาย:</h5>
+        <p>{{ mach.Description }}</p>
+        <br>
+    </div>
+</div>
+    {% if request.user.is_staff %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+          {{form.as_p}}
+          <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+{% endblock %}
